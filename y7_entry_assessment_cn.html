@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SciSpark 七年级入学评估（中文版）</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --border: #e4e7ec;
+    --accent: #2563eb;
+    --accent-light: #eff4ff;
+    --text: #1a202c;
+    --muted: #6b7280;
+    --success: #16a34a;
+    --warning: #d97706;
+    --radius: 12px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+    line-height: 1.7;
+  }
+
+  .page-header {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    padding: 32px 32px 28px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--accent);
+  }
+
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.75rem;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .page-header .meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .meta-item span.dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  .notice {
+    max-width: 760px;
+    margin: 0 auto 24px;
+    padding: 14px 18px;
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    color: #92400e;
+  }
+
+  .section-card {
+    max-width: 760px;
+    margin: 0 auto 24px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .section-header {
+    padding: 18px 28px 16px;
+    border-bottom: 1px solid var(--border);
+    background: #fafbfc;
+  }
+
+  .section-header h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .section-header p {
+    font-size: 0.825rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .questions { padding: 20px 28px 8px; }
+
+  .question-block {
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .question-block:last-child { border-bottom: none; margin-bottom: 8px; }
+
+  .q-label {
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .q-text {
+    font-size: 0.975rem;
+    font-weight: 500;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  .passage {
+    background: #f1f5f9;
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    color: #374151;
+  }
+
+  .passage strong { font-weight: 700; color: var(--text); }
+
+  .options { display: flex; flex-direction: column; gap: 8px; }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-size: 0.925rem;
+  }
+
+  .option:hover { border-color: var(--accent); background: var(--accent-light); }
+
+  .option input[type="radio"] {
+    accent-color: var(--accent);
+    width: 16px; height: 16px;
+    flex-shrink: 0;
+  }
+
+  .option:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .subpart { margin-bottom: 16px; }
+
+  .subpart-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 0.925rem;
+    color: var(--text);
+    resize: vertical;
+    transition: border-color 0.15s;
+    background: #fafbfc;
+  }
+
+  textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    font-size: 0.925rem;
+    color: var(--text);
+    transition: border-color 0.15s;
+    background: #fafbfc;
+  }
+
+  input[type="text"]:focus { outline: none; border-color: var(--accent); background: #fff; }
+
+  .submit-area {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    text-align: center;
+  }
+
+  .btn-submit {
+    padding: 14px 44px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', 'PingFang SC', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-submit:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+
+  .result-box {
+    max-width: 760px;
+    margin: 0 auto 32px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--success);
+    display: none;
+  }
+
+  .result-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    margin-bottom: 4px;
+  }
+
+  .result-header p { font-size: 0.875rem; color: var(--muted); }
+
+  .result-body { padding: 24px 28px; }
+
+  .score-total {
+    font-size: 2.5rem;
+    font-family: 'DM Serif Display', serif;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .score-label { font-size: 0.85rem; color: var(--muted); margin-bottom: 24px; }
+
+  .breakdown {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .breakdown-item {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid var(--border);
+  }
+
+  .breakdown-item .part-name {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .breakdown-item .part-score {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .plan-box {
+    background: var(--accent-light);
+    border: 1.5px solid var(--accent);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+
+  .plan-box h3 { font-size: 0.95rem; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .plan-box p { font-size: 0.9rem; color: #374151; margin-bottom: 4px; }
+
+  .chinese-box {
+    background: #fff7ed;
+    border: 1.5px solid #fed7aa;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+
+  .chinese-box h3 { font-size: 0.95rem; font-weight: 700; color: #c2410c; margin-bottom: 6px; }
+  .chinese-box p { font-size: 0.875rem; color: #7c2d12; }
+
+  .cn-button-area { margin-bottom: 16px; }
+
+  .cn-button-area p {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .cn-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .btn-cn-try {
+    padding: 11px 28px;
+    background: #c2410c;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'DM Sans', 'PingFang SC', sans-serif;
+    font-size: 0.925rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 1.4;
+  }
+
+  .btn-cn-try:hover { background: #9a3412; transform: translateY(-1px); }
+  .btn-cn-try:active { transform: translateY(0); }
+
+  .btn-cn-skip {
+    padding: 11px 28px;
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'DM Sans', 'PingFang SC', sans-serif;
+    font-size: 0.925rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s, transform 0.1s;
+  }
+
+  .btn-cn-skip:hover { border-color: var(--muted); color: var(--text); transform: translateY(-1px); }
+  .btn-cn-skip:active { transform: translateY(0); }
+
+  .cn-skip-message {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .disclaimer {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.825rem;
+    color: var(--muted);
+  }
+
+  .disclaimer strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    .page-header { padding: 22px 18px 20px; }
+    .questions { padding: 16px 18px 8px; }
+    .section-header { padding: 14px 18px 12px; }
+    .result-body { padding: 18px; }
+    .result-header { padding: 18px 18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>SciSpark 七年级入学评估（中文版）</h1>
+  <div class="meta">
+    <span class="meta-item"><span class="dot"></span> 中文</span>
+    <span class="meta-item"><span class="dot"></span> 45分钟</span>
+    <span class="meta-item"><span class="dot"></span> 总分60分</span>
+  </div>
+</div>
+
+<div class="notice">
+  ⚠️ <strong>注意：</strong>本评估为分班测试，不是正式考试。请尽力作答。结果仅供参考，须经老师审核确认。
+</div>
+
+<form id="assessmentForm">
+
+<!-- PART A -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>第A部分 — 科学词汇</h2>
+    <p>5题 · 每题1分 · 共5分</p>
+  </div>
+  <div class="questions">
+
+    <div class="question-block">
+      <div class="q-label">A1</div>
+      <div class="q-text">"蒸发"是什么意思？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="A1" value="A"><span>A. 气体变成液体</span></label>
+        <label class="option"><input type="radio" name="A1" value="B"><span>B. 固体变成液体</span></label>
+        <label class="option"><input type="radio" name="A1" value="C"><span>C. 液体变成气体</span></label>
+        <label class="option"><input type="radio" name="A1" value="D"><span>D. 液体变成固体</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">A2</div>
+      <div class="q-text">在实验中，"变量"是什么意思？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="A2" value="A"><span>A. 一种植物</span></label>
+        <label class="option"><input type="radio" name="A2" value="B"><span>B. 可以改变的事物</span></label>
+        <label class="option"><input type="radio" name="A2" value="C"><span>C. 固定的测量值</span></label>
+        <label class="option"><input type="radio" name="A2" value="D"><span>D. 一件实验器材</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">A3</div>
+      <div class="q-text">"发芽"是什么意思？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="A3" value="A"><span>A. 在冬天死亡</span></label>
+        <label class="option"><input type="radio" name="A3" value="B"><span>B. 种子开始生长</span></label>
+        <label class="option"><input type="radio" name="A3" value="C"><span>C. 结出果实</span></label>
+        <label class="option"><input type="radio" name="A3" value="D"><span>D. 只吸收水分</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">A4</div>
+      <div class="q-text">下列哪项最能描述"绝热体（隔热体）"？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="A4" value="A"><span>A. 允许热量自由流动</span></label>
+        <label class="option"><input type="radio" name="A4" value="B"><span>B. 不容易让热量流动</span></label>
+        <label class="option"><input type="radio" name="A4" value="C"><span>C. 导电性良好</span></label>
+        <label class="option"><input type="radio" name="A4" value="D"><span>D. 将热能转化为光能</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">A5</div>
+      <div class="q-text">什么是"捕食者"？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="A5" value="A"><span>A. 只吃植物的动物</span></label>
+        <label class="option"><input type="radio" name="A5" value="B"><span>B. 自己制造食物的植物</span></label>
+        <label class="option"><input type="radio" name="A5" value="C"><span>C. 猎食其他动物的动物</span></label>
+        <label class="option"><input type="radio" name="A5" value="D"><span>D. 为花朵传粉的昆虫</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PART B -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>第B部分 — 科学概念</h2>
+    <p>18题 · 每题1分 · 共18分</p>
+  </div>
+  <div class="questions">
+
+    <div class="question-block">
+      <div class="q-label">B1</div>
+      <div class="q-text">下列哪项是物理变化的例子？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B1" value="A"><span>A. 铁生锈</span></label>
+        <label class="option"><input type="radio" name="B1" value="B"><span>B. 木材燃烧</span></label>
+        <label class="option"><input type="radio" name="B1" value="C"><span>C. 冰融化</span></label>
+        <label class="option"><input type="radio" name="B1" value="D"><span>D. 面包烘烤</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B2</div>
+      <div class="q-text">植物用什么过程来自己制造食物？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B2" value="A"><span>A. 光合作用</span></label>
+        <label class="option"><input type="radio" name="B2" value="B"><span>B. 呼吸作用</span></label>
+        <label class="option"><input type="radio" name="B2" value="C"><span>C. 蒸腾作用</span></label>
+        <label class="option"><input type="radio" name="B2" value="D"><span>D. 发酵</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B3</div>
+      <div class="q-text">植物在光合作用中吸收哪种气体？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B3" value="A"><span>A. 氧气</span></label>
+        <label class="option"><input type="radio" name="B3" value="B"><span>B. 氮气</span></label>
+        <label class="option"><input type="radio" name="B3" value="C"><span>C. 二氧化碳</span></label>
+        <label class="option"><input type="radio" name="B3" value="D"><span>D. 氢气</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B4</div>
+      <div class="q-text">测量力的单位是什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B4" value="A"><span>A. 千克</span></label>
+        <label class="option"><input type="radio" name="B4" value="B"><span>B. 牛顿</span></label>
+        <label class="option"><input type="radio" name="B4" value="C"><span>C. 焦耳</span></label>
+        <label class="option"><input type="radio" name="B4" value="D"><span>D. 瓦特</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B5</div>
+      <div class="q-text">哪种岩石是由冷却的岩浆或熔岩形成的？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B5" value="A"><span>A. 沉积岩</span></label>
+        <label class="option"><input type="radio" name="B5" value="B"><span>B. 火成岩</span></label>
+        <label class="option"><input type="radio" name="B5" value="C"><span>C. 变质岩</span></label>
+        <label class="option"><input type="radio" name="B5" value="D"><span>D. 石灰岩</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B6</div>
+      <div class="q-text">大多数物质被加热后会发生什么变化？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B6" value="A"><span>A. 收缩</span></label>
+        <label class="option"><input type="radio" name="B6" value="B"><span>B. 颜色改变</span></label>
+        <label class="option"><input type="radio" name="B6" value="C"><span>C. 膨胀</span></label>
+        <label class="option"><input type="radio" name="B6" value="D"><span>D. 密度增大</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B7</div>
+      <div class="q-text">植物根部的主要功能是什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B7" value="A"><span>A. 进行光合作用</span></label>
+        <label class="option"><input type="radio" name="B7" value="B"><span>B. 吸收水分和矿物质</span></label>
+        <label class="option"><input type="radio" name="B7" value="C"><span>C. 产生种子</span></label>
+        <label class="option"><input type="radio" name="B7" value="D"><span>D. 释放氧气</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B8</div>
+      <div class="q-text">下列哪项是电的良导体？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B8" value="A"><span>A. 橡胶</span></label>
+        <label class="option"><input type="radio" name="B8" value="B"><span>B. 塑料</span></label>
+        <label class="option"><input type="radio" name="B8" value="C"><span>C. 铜</span></label>
+        <label class="option"><input type="radio" name="B8" value="D"><span>D. 木材</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B9</div>
+      <div class="q-text">在简单的食物链中，自己制造食物的生物叫什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B9" value="A"><span>A. 消费者</span></label>
+        <label class="option"><input type="radio" name="B9" value="B"><span>B. 生产者</span></label>
+        <label class="option"><input type="radio" name="B9" value="C"><span>C. 分解者</span></label>
+        <label class="option"><input type="radio" name="B9" value="D"><span>D. 捕食者</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B10</div>
+      <div class="q-text">"密度"是什么意思？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B10" value="A"><span>A. 物体的总重量</span></label>
+        <label class="option"><input type="radio" name="B10" value="B"><span>B. 所占据的空间大小</span></label>
+        <label class="option"><input type="radio" name="B10" value="C"><span>C. 单位体积的质量</span></label>
+        <label class="option"><input type="radio" name="B10" value="D"><span>D. 运动速度</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B11</div>
+      <div class="q-text">肺在人体中的功能是什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B11" value="A"><span>A. 泵送血液</span></label>
+        <label class="option"><input type="radio" name="B11" value="B"><span>B. 交换氧气和二氧化碳</span></label>
+        <label class="option"><input type="radio" name="B11" value="C"><span>C. 消化食物</span></label>
+        <label class="option"><input type="radio" name="B11" value="D"><span>D. 过滤废物</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B12</div>
+      <div class="q-text">哪颗行星距离太阳最近？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B12" value="A"><span>A. 金星</span></label>
+        <label class="option"><input type="radio" name="B12" value="B"><span>B. 地球</span></label>
+        <label class="option"><input type="radio" name="B12" value="C"><span>C. 水星</span></label>
+        <label class="option"><input type="radio" name="B12" value="D"><span>D. 火星</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B13</div>
+      <div class="q-text">水蒸气重新变成液态水的过程叫什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B13" value="A"><span>A. 蒸发</span></label>
+        <label class="option"><input type="radio" name="B13" value="B"><span>B. 冷凝</span></label>
+        <label class="option"><input type="radio" name="B13" value="C"><span>C. 降水</span></label>
+        <label class="option"><input type="radio" name="B13" value="D"><span>D. 蒸腾</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B14</div>
+      <div class="q-text">一名学生进行公平测试。她改变的是哪个变量？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B14" value="A"><span>A. 因变量</span></label>
+        <label class="option"><input type="radio" name="B14" value="B"><span>B. 自变量</span></label>
+        <label class="option"><input type="radio" name="B14" value="C"><span>C. 控制变量</span></label>
+        <label class="option"><input type="radio" name="B14" value="D"><span>D. 常数变量</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B15</div>
+      <div class="q-text">水的化学符号是什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B15" value="A"><span>A. WA</span></label>
+        <label class="option"><input type="radio" name="B15" value="B"><span>B. HO₂</span></label>
+        <label class="option"><input type="radio" name="B15" value="C"><span>C. H₂O</span></label>
+        <label class="option"><input type="radio" name="B15" value="D"><span>D. OH</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B16</div>
+      <div class="q-text">在哪种物质状态下，粒子运动最快？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B16" value="A"><span>A. 固态</span></label>
+        <label class="option"><input type="radio" name="B16" value="B"><span>B. 气态</span></label>
+        <label class="option"><input type="radio" name="B16" value="C"><span>C. 液态</span></label>
+        <label class="option"><input type="radio" name="B16" value="D"><span>D. 三种状态相同</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B17</div>
+      <div class="q-text">地球上昼夜交替的原因是什么？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B17" value="A"><span>A. 地球绕月球公转</span></label>
+        <label class="option"><input type="radio" name="B17" value="B"><span>B. 地球自转</span></label>
+        <label class="option"><input type="radio" name="B17" value="C"><span>C. 太阳绕地球运动</span></label>
+        <label class="option"><input type="radio" name="B17" value="D"><span>D. 云层遮挡阳光</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">B18</div>
+      <div class="q-text">下列哪项是可再生能源？</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="B18" value="A"><span>A. 煤</span></label>
+        <label class="option"><input type="radio" name="B18" value="B"><span>B. 天然气</span></label>
+        <label class="option"><input type="radio" name="B18" value="C"><span>C. 太阳能</span></label>
+        <label class="option"><input type="radio" name="B18" value="D"><span>D. 石油</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PART C -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>第C部分 — 阅读与推理</h2>
+    <p>6题 · 每题2分 · 共12分</p>
+  </div>
+  <div class="questions">
+
+    <div class="question-block">
+      <div class="passage"><strong>短文一 — 摆实验</strong><br>一名学生研究摆的长度如何影响摆动速度。她测试了长度分别为20厘米、40厘米和60厘米的摆。每次保持摆锤质量不变，记录完成10次完整摆动所需的时间。</div>
+      <div class="q-label">C1</div>
+      <div class="q-text">这个实验中的自变量是什么？（2分）</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="C1" value="A"><span>A. 摆锤的质量</span></label>
+        <label class="option"><input type="radio" name="C1" value="B"><span>B. 摆的长度</span></label>
+        <label class="option"><input type="radio" name="C1" value="C"><span>C. 10次摆动的时间</span></label>
+        <label class="option"><input type="radio" name="C1" value="D"><span>D. 摆动次数</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">C2</div>
+      <div class="q-text">为了使实验公平，哪个因素应保持不变？（2分）</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="C2" value="A"><span>A. 摆的长度</span></label>
+        <label class="option"><input type="radio" name="C2" value="B"><span>B. 摆锤的质量</span></label>
+        <label class="option"><input type="radio" name="C2" value="C"><span>C. 实验时间</span></label>
+        <label class="option"><input type="radio" name="C2" value="D"><span>D. 绳子颜色</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="passage"><strong>短文二 — 隔热实验</strong><br>一个班级测试了四种材料（羊毛、铝箔、棉花、报纸），以查看哪种材料能让装有热水的杯子在10分钟后保持最暖。他们用一层材料包裹每个杯子，测量每个杯子的温度下降情况。每种材料只进行了一次实验。</div>
+      <div class="q-label">C3</div>
+      <div class="q-text">这个实验中的因变量是什么？（2分）</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="C3" value="A"><span>A. 使用的材料类型</span></label>
+        <label class="option"><input type="radio" name="C3" value="B"><span>B. 水的初始温度</span></label>
+        <label class="option"><input type="radio" name="C3" value="C"><span>C. 10分钟后的温度下降</span></label>
+        <label class="option"><input type="radio" name="C3" value="D"><span>D. 材料的厚度</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">C4</div>
+      <div class="q-text">学生们如何提高这个实验的可靠性？（2分）</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="C4" value="A"><span>A. 使用更大的杯子</span></label>
+        <label class="option"><input type="radio" name="C4" value="B"><span>B. 每种材料重复实验三次</span></label>
+        <label class="option"><input type="radio" name="C4" value="C"><span>C. 使用不同的初始温度</span></label>
+        <label class="option"><input type="radio" name="C4" value="D"><span>D. 只测试一种材料</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="passage"><strong>短文三 — 熔点表</strong><br>下表显示了四种物质的熔点：<br>黄油：32°C &nbsp;|&nbsp; 冰：0°C &nbsp;|&nbsp; 蜡：62°C &nbsp;|&nbsp; 铁：1538°C</div>
+      <div class="q-label">C5</div>
+      <div class="q-text">在室温（25°C）下，哪种物质在10分钟后不会发生状态变化？（2分）</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="C5" value="A"><span>A. 黄油</span></label>
+        <label class="option"><input type="radio" name="C5" value="B"><span>B. 冰</span></label>
+        <label class="option"><input type="radio" name="C5" value="C"><span>C. 蜡</span></label>
+        <label class="option"><input type="radio" name="C5" value="D"><span>D. 铁</span></label>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">C6</div>
+      <div class="q-text">如果将黄油加热到40°C，它会处于什么状态？（2分）</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="C6" value="A"><span>A. 固态</span></label>
+        <label class="option"><input type="radio" name="C6" value="B"><span>B. 液态</span></label>
+        <label class="option"><input type="radio" name="C6" value="C"><span>C. 气态</span></label>
+        <label class="option"><input type="radio" name="C6" value="D"><span>D. 固液混合</span></label>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PART D -->
+<div class="section-card">
+  <div class="section-header">
+    <h2>第D部分 — 简答题</h2>
+    <p>5题 · 每题5分 · 共25分</p>
+  </div>
+  <div class="questions">
+
+    <div class="question-block">
+      <div class="q-label">D1</div>
+      <div class="q-text">说出植物生长所需的两样东西，并解释每样东西的作用。（5分）</div>
+      <textarea name="D1" rows="5" placeholder="在此写下你的答案……"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">D2</div>
+      <div class="q-text">一名学生测试水温是否影响糖溶解的速度。她使用50 cm³的水，温度分别为20°C、40°C和60°C，每次加入10g糖，并保持搅拌速度不变。（5分）</div>
+      <div class="subpart">
+        <div class="subpart-label">（a）自变量是什么？</div>
+        <input type="text" name="D2a" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（b）因变量是什么？</div>
+        <input type="text" name="D2b" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（c）写出一个预测。</div>
+        <input type="text" name="D2c" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（d）解释你的预测为什么正确。</div>
+        <textarea name="D2d" rows="3" placeholder="你的解释……"></textarea>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">D3</div>
+      <div class="q-text">食物链：生菜 → 兔子 → 狐狸（5分）</div>
+      <div class="subpart">
+        <div class="subpart-label">（a）这条食物链中的生产者是什么？</div>
+        <input type="text" name="D3a" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（b）二级消费者是什么？</div>
+        <input type="text" name="D3b" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（c）如果兔子数量减少，狐狸数量会怎样变化？请解释。</div>
+        <textarea name="D3c" rows="3" placeholder="你的答案……"></textarea>
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（d）生菜数量会怎样变化？请解释。</div>
+        <textarea name="D3d" rows="3" placeholder="你的答案……"></textarea>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">D4</div>
+      <div class="q-text">为什么重复实验几次很重要？请给出两个原因。（5分）</div>
+      <textarea name="D4" rows="5" placeholder="在此写下你的两个原因……"></textarea>
+    </div>
+
+    <div class="question-block">
+      <div class="q-label">D5</div>
+      <div class="q-text">一名学生想测试哪种纸巾最坚固。她在每种纸巾上悬挂砝码，直到纸巾断裂。（5分）</div>
+      <div class="subpart">
+        <div class="subpart-label">（a）自变量是什么？</div>
+        <input type="text" name="D5a" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（b）因变量是什么？</div>
+        <input type="text" name="D5b" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（c）说出一个控制变量。</div>
+        <input type="text" name="D5c" placeholder="你的答案……">
+      </div>
+      <div class="subpart">
+        <div class="subpart-label">（d）她如何使结果更可靠？</div>
+        <input type="text" name="D5d" placeholder="你的答案……">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="submit-area">
+  <button type="button" class="btn-submit" onclick="submitAssessment()">提交评估</button>
+</div>
+
+</form>
+
+<!-- RESULTS -->
+<div class="result-box" id="resultBox">
+  <div class="result-header">
+    <h2>评估结果</h2>
+    <p>SciSpark 七年级入学评估（中文版）— 仅供参考，须经老师审核确认后方为最终结果。</p>
+  </div>
+  <div class="result-body">
+    <div class="score-total" id="totalScore">—</div>
+    <div class="score-label">满分60分</div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="plan-box" id="planBox"></div>
+    <div class="chinese-box" id="chineseBox" style="display:none;"></div>
+    <div class="cn-button-area" id="chineseButtonArea" style="display:none;">
+      <p>您希望参加英文版第二轮评估吗？</p>
+      <div class="cn-buttons">
+        <a class="btn-cn-try" href="y7_entry_assessment.html">参加英文版评估</a>
+        <button class="btn-cn-skip" type="button" onclick="skipFollowUp()">暂时跳过</button>
+      </div>
+      <div class="cn-skip-message" id="cnSkipMessage">
+        您选择暂时不参加后续评估。您的结果将交由老师审核，最终建议方案将由老师确认。
+      </div>
+    </div>
+    <div class="disclaimer">
+      <strong>⚠️ 须经人工确认</strong><br>
+      以上为<strong>初步结果，仅供参考</strong>。建议方案基于自动评分，尚未经老师确认。最终建议将由SciSpark老师审核后确认。<strong>在老师完成审核确认之前，不会发出任何报名或付款链接。</strong>
+    </div>
+  </div>
+</div>
+
+<script>
+const answerKeyA = { A1:'C', A2:'B', A3:'B', A4:'B', A5:'C' };
+const answerKeyB = { B1:'C', B2:'A', B3:'C', B4:'B', B5:'B', B6:'C', B7:'B', B8:'C', B9:'B', B10:'C', B11:'B', B12:'C', B13:'B', B14:'B', B15:'C', B16:'B', B17:'B', B18:'C' };
+const answerKeyC = { C1:'B', C2:'B', C3:'C', C4:'B', C5:'D', C6:'B' };
+
+function getRadioValue(name) {
+  const el = document.querySelector(`input[name="${name}"]:checked`);
+  return el ? el.value : null;
+}
+
+function getTextValue(name) {
+  const el = document.querySelector(`[name="${name}"]`);
+  return el ? el.value.toLowerCase().trim() : '';
+}
+
+function scoreD1() {
+  const t = getTextValue('D1');
+  let score = 0;
+  const waterReason = /water|h2o|水/i.test(t) && /transport|nutrient|photosynthesis|absorb|growth|运输|养分|光合|吸收|生长/i.test(t);
+  const waterOnly = /water|h2o|水/i.test(t);
+  const lightReason = /light|sunlight|warmth|sun|光|阳光|温暖/i.test(t) && /photosynthesis|energy|enzyme|growth|光合|能量|酶|生长/i.test(t);
+  const lightOnly = /light|sunlight|warmth|sun|光|阳光/i.test(t);
+  if (waterReason) score += 2.5;
+  else if (waterOnly) score += 1;
+  if (lightReason) score += 2.5;
+  else if (lightOnly) score += 1;
+  return Math.min(score, 5);
+}
+
+function scoreD2() {
+  let score = 0;
+  const a = getTextValue('D2a');
+  const b = getTextValue('D2b');
+  const c = getTextValue('D2c');
+  const d = getTextValue('D2d');
+  if (/temperature|temp|温度/i.test(a)) score += 1;
+  if (/time|rate|dissolve|speed|how fast|how long|时间|速率|溶解|速度/i.test(b)) score += 1;
+  if (/hotter|higher temp|higher temperature|warmer|温度越高|越热|更热/i.test(c) && /faster|quicker|less time|dissolve|更快|越快|溶解/i.test(c)) score += 1.5;
+  else if (/faster|quicker|less time|更快|越快/i.test(c)) score += 0.5;
+  if (/particle|molecule|粒子|分子/i.test(d) && /energy|move faster|collision|kinetic|能量|运动更快|碰撞|动能/i.test(d)) score += 1.5;
+  return Math.min(score, 5);
+}
+
+function scoreD3() {
+  let score = 0;
+  const a = getTextValue('D3a');
+  const b = getTextValue('D3b');
+  const c = getTextValue('D3c');
+  const d = getTextValue('D3d');
+  if (/lettuce|生菜/i.test(a)) score += 1;
+  if (/fox|狐狸/i.test(b)) score += 1;
+  if (/decreas|fewer|less|drop|fall|减少|降低|下降/i.test(c)) {
+    score += 0.5;
+    if (/less food|fewer rabbit|no rabbit|food|rabbit|食物减少|兔子减少|没有兔子|兔子/i.test(c)) score += 1;
+  }
+  if (/increas|more|grow|rise|增加|增多|增长/i.test(d)) {
+    score += 0.5;
+    if (/fewer rabbit|less eaten|rabbit|not eaten|兔子减少|被吃减少|兔子|少被吃/i.test(d)) score += 1;
+  }
+  return Math.min(score, 5);
+}
+
+function scoreD4() {
+  const t = getTextValue('D4');
+  let score = 0;
+  if (/reliable|consistent|check|accurate|可靠|一致|检验|准确/i.test(t)) score += 2.5;
+  if (/error|anomalous|average|chance|outlier|mean|误差|异常|平均|偶然|均值/i.test(t)) score += 2.5;
+  return Math.min(score, 5);
+}
+
+function scoreD5() {
+  let score = 0;
+  const a = getTextValue('D5a');
+  const b = getTextValue('D5b');
+  const c = getTextValue('D5c');
+  const d = getTextValue('D5d');
+  if (/type|kind|brand|material|paper towel|类型|种类|品牌|材料|纸巾/i.test(a)) score += 1;
+  if (/mass|weight|strength|breaking|load|force|质量|重量|强度|断裂|负载|力/i.test(b)) score += 1;
+  if (/same|size|length|brand|amount|thickness|相同|大小|长度|品牌|数量|厚度/i.test(c)) score += 1.5;
+  if (/repeat|average|several|multiple|mean|重复|平均|多次/i.test(d)) score += 1.5;
+  return Math.min(score, 5);
+}
+
+function submitAssessment() {
+  let scoreA = 0;
+  Object.entries(answerKeyA).forEach(([q, ans]) => { if (getRadioValue(q) === ans) scoreA++; });
+
+  let scoreB = 0;
+  Object.entries(answerKeyB).forEach(([q, ans]) => { if (getRadioValue(q) === ans) scoreB++; });
+
+  let scoreC = 0;
+  Object.entries(answerKeyC).forEach(([q, ans]) => { if (getRadioValue(q) === ans) scoreC += 2; });
+
+  const d1 = scoreD1(), d2 = scoreD2(), d3 = scoreD3(), d4 = scoreD4(), d5 = scoreD5();
+  const scoreD = d1 + d2 + d3 + d4 + d5;
+  const total = scoreA + scoreB + scoreC + scoreD;
+
+  let level, englishPlan, bilingualPlan;
+  if (total >= 45) { level = 3; englishPlan = 'Core（$149）'; bilingualPlan = '双语版（$199）'; }
+  else if (total >= 30) { level = 2; englishPlan = 'Core（$149）'; bilingualPlan = '双语版（$199）'; }
+  else { level = 1; englishPlan = 'Core Plus（$199）'; bilingualPlan = '双语增强版（$249）'; }
+
+  const suggestEnglish = total < 30;
+
+  document.getElementById('totalScore').textContent = total + ' / 60';
+  document.getElementById('breakdown').innerHTML = `
+    <div class="breakdown-item"><div class="part-name">第A部分（满分5）</div><div class="part-score">${scoreA}</div></div>
+    <div class="breakdown-item"><div class="part-name">第B部分（满分18）</div><div class="part-score">${scoreB}</div></div>
+    <div class="breakdown-item"><div class="part-name">第C部分（满分12）</div><div class="part-score">${scoreC}</div></div>
+    <div class="breakdown-item"><div class="part-name">第D部分（满分25）</div><div class="part-score">${scoreD.toFixed(1)}</div></div>
+    <div class="breakdown-item"><div class="part-name">D1</div><div class="part-score">${d1.toFixed(1)}</div></div>
+    <div class="breakdown-item"><div class="part-name">D2</div><div class="part-score">${d2.toFixed(1)}</div></div>
+    <div class="breakdown-item"><div class="part-name">D3</div><div class="part-score">${d3.toFixed(1)}</div></div>
+    <div class="breakdown-item"><div class="part-name">D4</div><div class="part-score">${d4.toFixed(1)}</div></div>
+    <div class="breakdown-item"><div class="part-name">D5</div><div class="part-score">${d5.toFixed(1)}</div></div>
+  `;
+
+  document.getElementById('planBox').innerHTML = `
+    <h3>初步结果</h3>
+    <p>以下结果仅供参考，最终建议将在审核后确认。</p>
+    <p><strong>暂定等级：</strong>第 ${level} 级</p>
+    <p><strong>若审核后确认为纯英语学习路线，建议方案为：</strong>${englishPlan}</p>
+    <p><strong>若审核后确认需要双语支持，建议方案为：</strong>${bilingualPlan}</p>
+  `;
+
+  const cBox = document.getElementById('chineseBox');
+  const btnArea = document.getElementById('chineseButtonArea');
+  if (suggestEnglish) {
+    cBox.style.display = 'block';
+    cBox.innerHTML = `<h3>可能建议进行英文版评估</h3><p>中文得分低于30分。可能建议进行英文版评估，以进一步确认问题所在——是语言支持还是科学基础。具体将在审核过程中确定。</p>`;
+    btnArea.style.display = 'block';
+  } else {
+    cBox.style.display = 'none';
+    btnArea.style.display = 'none';
+  }
+
+  const rb = document.getElementById('resultBox');
+  rb.style.display = 'block';
+  rb.scrollIntoView({ behavior: 'smooth' });
+}
+
+function skipFollowUp() {
+  document.getElementById('cnSkipMessage').style.display = 'block';
+  document.querySelector('.cn-buttons').style.display = 'none';
+}
+</script>
+</body>
+</html>
